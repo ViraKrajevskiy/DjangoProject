@@ -1,11 +1,15 @@
 
 from django.contrib.auth import logout
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from .models import User, Role
 from django.contrib.auth import authenticate, login
+
+from django.shortcuts import render, redirect
+from .forms import UploadFileForm
+
+
 #
 # def register_user(request):
 #     if request.method == "POST":
@@ -186,3 +190,17 @@ def logout_user(request):
     logout(request)
     messages.success(request, "Вы успешно вышли из системы!")
     return redirect("login")  # Перенаправление на страницу входа
+
+
+
+
+def upload_file(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("upload_success")
+    else:
+        form = UploadFileForm()
+
+    return render(request, "upload.html", {"form": form})

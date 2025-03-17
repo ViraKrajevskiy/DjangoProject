@@ -1,11 +1,8 @@
 from django.urls import path
-from .views import (
-    logout_user, register_user, login_user,
-    superadmin_dashboard, admin_dashboard, user_dashboard,
-    index, add_user, change_role, delete_user
-)
+from .views import *
 
 urlpatterns = [
+    path("upload/", upload_file, name="upload_file"),
     path("", index, name="home"),
 
     # Аутентификация

@@ -77,6 +77,16 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+
+class UploadFile(models.Model):
+    file = models.FileField(upload_to="uploads/", blank=True, null=True)
+    video = models.FileField(upload_to="videos/", blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Upload {self.id} - {self.uploaded_at}"
+
+
 class Role(models.Model):
     class RoleChoices(models.TextChoices):
         USER = "user", _("Обычный пользователь")
