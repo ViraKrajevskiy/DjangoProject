@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Изменение роли пользователя</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="user_id">Выберите пользователя:</label>
+    <select name="user_id" id="user_id">
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.email }} ({{ user.role.role }})</option>
+        {% endfor %}
+    </select>
+
+    <label for="role">Выберите новую роль:</label>
+    <select name="role" id="role">
+        <option value="user">Обычный пользователь</option>
+        <option value="admin">Админ</option>
+        <option value="superadmin">Суперадмин</option>
+    </select>
+
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+{% endblock %}
